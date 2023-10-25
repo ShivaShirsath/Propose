@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>3D Cube Example</title>
+    <style>
+      :root{
+        font-size: 5dvmin;
+      }
+      *{
+        border-radius: 5dvmin;
+      }
+      body > div {
+        position: fixed;
+        text-align: center;
+        inset: 25dvmin 25dvmin;
+        display: flex;
+        flex-direction: column;
+        border: 1dvmin solid teal;
+      }
+      div > div:has(yes) {
+        position: absolute;
+        inset: 25% 5% 5% 5%;
+      }
+      yes, no {
+        position:absolute;
+        background-color: #44cc88;
+        cursor: pointer;
+        padding: 2.5dvmin;
+        bottom:0;
+      }   
+      yes {
+        left: 0;
+      }
+      no {
+        right:0;
+        background-color: #cc3322;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1 align="center" style="position: relative">
+        <div style="position:absolute; color:white; inset: 2.5dvmin;">?</div>
+        <svg style="width:15dvmin" fill="tomato" viewBox="0 0 475.528 475.528">
+          <path d="M237.376,436.245l0.774,0.976c210.94-85.154,292.221-282.553,199.331-367.706
+                   c-92.899-85.154-199.331,30.953-199.331,30.953h-0.774c0,0-106.44-116.107-199.331-30.953
+                   C-54.844,154.658,26.437,351.092,237.376,436.245z"
+          />       
+        </svg>
+        <h4>Do you love me?</h4>
+      </h1>
+      <div>
+        <div>
+          <yes>Yes</yes>
+          <no>No</no>
+        </div>
+      </div>    
+    </div>
+    <script>
+      const wrapper = document.querySelector('body>div');
+      const question = document.querySelector('h4');
+      const No = document.querySelector('no');
+      const Yes = document.querySelector('yes');
+
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const NoRect = No.getBoundingClientRect();
+  
+      var index=0;
+  
+      Yes.addEventListener('click', () => {
+        question.innerHTML = "I Love You Too :)";
+        No.style="pointer-event:all; opacity:1";
+        index=0;
+      });
+
+      No.addEventListener('click', () => {
+        const i = Math.random() * (100 - (NoRect.width / wrapperRect.width) * 100);
+        const j = Math.random() * (100 - (NoRect.height / wrapperRect.height) * 100);
+        No.style.right = i + "%";
+        No.style.bottom = j + "%";
+        question.innerHTML = "Do you love me?";
+        index=index+1;
+        if(index>5) No.style="pointer-event:none; opacity:.25";
+      });
+    </script>
+  </body>
+</html>
